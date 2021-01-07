@@ -50,6 +50,15 @@ public class OrderService {
 		order = repository.save(order); //salvarno banco.
 		return new OrderDTO(order); // retornar objeto convertido DTO
 		}
+	// Metodo para inserir um novo pedido ,já associado com produtos dele
+	@Transactional 
+	public OrderDTO setDelivered(Long id) {
+		Order order = repository.getOne(id); // alterar registro = getOne monitorado JPA
+		order.setStatus(OrderStatus.DELIVERED); //pedido entregue
+		order = repository.save(order); //pedido entregue salvo
+		return new OrderDTO(order);
 	}
 	
-// Metodo para inserir um novo pedido ,já associado com produtos dele
+	}
+	
+
