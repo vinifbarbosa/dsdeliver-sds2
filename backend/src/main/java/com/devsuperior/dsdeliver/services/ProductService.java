@@ -21,6 +21,7 @@ public class ProductService {
 	public List<ProductDTO> findAll() {
 		List<Product> list = repository.findALlByOrderByNameAsc();
 		// Transformar Lista product em product DTO
-		return list.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
+		return list.stream().map(x -> new ProductDTO(x))
+				.collect(Collectors.toList());
 	}
 }

@@ -45,7 +45,8 @@ public class OrderDTO implements Serializable{
 		moment = entity.getMoment();
 		status = entity.getStatus();
 		products = entity.getProducts().stream()
-				.map(x -> new ProductDTO(x)).collect(Collectors.toList()); // .map  transformar todo mundo DTO,collect para converter de string para Lista
+				.map(x -> new ProductDTO(x))
+				.collect(Collectors.toList()); // .map  transformar todo mundo DTO,collect para converter de string para Lista
 	}
 
 	public Long getId() {
