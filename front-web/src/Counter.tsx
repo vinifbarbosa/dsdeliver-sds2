@@ -1,4 +1,4 @@
-import { write } from "fs";
+
 import { useState } from "react";
 
 //toda vez que precisa ter variavel dentro do component,use useState.
@@ -24,5 +24,4 @@ function Counter() {
         </div>
     )
 };
-
-export default Counter;
+ export default Counter; 
