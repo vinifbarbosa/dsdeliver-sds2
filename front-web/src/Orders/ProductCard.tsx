@@ -1,24 +1,23 @@
+import { formatPrice } from "./helpers";
 import { Product } from "./types";
 
 type Props = {
     product: Product;
+    onSelectProduct:(product:Product) => void; //usada la em product list
+    isSelected:boolean;
 }
 
 // Colocar o price na moeda real
-function formatPrice(price:number) {
-    const formatter = new Intl.NumberFormat("pt-BR", {
-        style:"currency", //currency moeda
-        currency:"BRL", //qual tipo da moeda
-        minimumFractionDigits:2
-    });
-    
-    return formatter.format(price)
-}
 
 
-function ProductCard({ product}: Props) {
+
+function ProductCard({ product, onSelectProduct, isSelected}: Props) {
     return(
-           <div className="orders-card-container">
+           <div
+            className={`order-card-container ${isSelected ? 'selected' : ''}`}
+            onClick={() =>
+                onSelectProduct(product)} //esse clique chamou uma função, que é uma prop la em cima
+            >
               <h3 className="order-card-title">
                  {product.name}
               </h3>
