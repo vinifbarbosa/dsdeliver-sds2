@@ -18,9 +18,9 @@ import javax.persistence.Table;
 @Table(name="tb_order") 
 public class Order implements Serializable {
 
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id;
@@ -29,20 +29,20 @@ public class Order implements Serializable {
 		private Double longitude;
 		private Instant moment;
 		private OrderStatus status;
-		
+
 		@ManyToMany
 		@JoinTable(name = "tb_order_product", //a tabela que estou me referenciando
 		joinColumns =  @JoinColumn(name = "order_id"), // é a chave estrangeira quqe referencia a classe onde estou(order)
 				inverseJoinColumns = @JoinColumn(name ="product_id") // referenciando a chave estrangeira da tabela product
 				)
-		
+
 		private Set<Product> products = new HashSet<>();
 		
-		
+
 		public Order() {
 		}
 
-		
+
 		public Order(Long id, String address, Double latitude, Double longitude, Instant moment, OrderStatus status) {
 			super();
 			this.id = id;
@@ -100,15 +100,15 @@ public class Order implements Serializable {
 		public void setStatus(OrderStatus status) {
 			this.status = status;
 		}
-
-			public Double getTotal() {
-				double sum=0.0;
-				for(Product p : products) {
-					sum = sum + p.getPrice();
-				}
-				return sum;
+		public Double getTotal() {
+			double sum =0.0;
+			for(Product p : products) {
+				sum = sum + p.getPrice();
 			}
+			return sum;
+		}
 		
+
 		public Set<Product> getProducts() {
 			return products;
 		}
@@ -137,6 +137,6 @@ public class Order implements Serializable {
 				return false;
 			return true;
 		}
-			
-		
+
+
 }
