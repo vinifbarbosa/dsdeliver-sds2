@@ -1,20 +1,54 @@
 
-import React from 'react';
-import { StyleSheet,  View, ScrollView} from 'react-native';
-import  Header  from '../Header';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, ScrollView, Alert, Text } from 'react-native';
+import Header from '../Header';
 import OrderCard from "../OrderCard";
+import { fetchOrders } from "../api";
+import { Order } from '../types';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 function Orders() {
+    const [orders, setOrders] = useState<Order[]>([]);
+    const [isloading, setIsLoading] = useState(false);
+    const navigation = useNavigation();
+    const isFocused = useIsFocused(); //false
+
+    const fetchData =() => {
+        setIsLoading(true);
+        fetchOrders()
+            .then(response => setOrders(response.data))
+            .catch(() => Alert.alert("Houve um erro ao buscar aos pedidos"))
+            .finally(() => setIsLoading(false));
+    }
+
+    useEffect(() => {
+       if(isFocused) {
+           fetchData();
+       }
+    }, [isFocused]);
+
+    const handleOnPress = (order: Order) => {
+        navigation.navigate("OrderDetails", {
+            order
+        });
+    }
+
     return (
         <>
-        <Header />
-            < ScrollView style={styles.container}>     
-              <OrderCard />
-              <OrderCard />
-              <OrderCard />
-              <OrderCard />
-              <OrderCard />
-
+            <Header />
+            <ScrollView style={styles.container}>
+                {isloading ? (
+                    <Text>Buscando Pedidos</Text>
+                ) : (
+                        orders.map(order => (
+                            <TouchableWithoutFeedback
+                                key={order.id}
+                                onPress={() => handleOnPress(order)}>
+                                <OrderCard order={order} />
+                            </TouchableWithoutFeedback>
+                        ))
+                    )}
             </ ScrollView>
         </>
     );
@@ -22,12 +56,12 @@ function Orders() {
 
 const styles = StyleSheet.create({
     container: {
-        paddingRight:"5%",
-        paddingLeft:"5%",
+        paddingRight: "5%",
+        paddingLeft: "5%",
 
     }
 
-    
+
 
 });
 
