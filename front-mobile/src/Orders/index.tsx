@@ -14,7 +14,7 @@ function Orders() {
     const navigation = useNavigation();
     const isFocused = useIsFocused(); //false
 
-    const fetchData =() => {
+    const fetchData = () => {
         setIsLoading(true);
         fetchOrders()
             .then(response => setOrders(response.data))
@@ -23,9 +23,9 @@ function Orders() {
     }
 
     useEffect(() => {
-       if(isFocused) {
-           fetchData();
-       }
+        if (isFocused) {
+            fetchData();
+        }
     }, [isFocused]);
 
     const handleOnPress = (order: Order) => {

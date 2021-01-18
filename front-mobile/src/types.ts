@@ -6,18 +6,18 @@ export type Order = {
     moment: string;
     status: string;
     products: Product[];
-    total:number;
-    
+    total: number;
+
 
 
 }
 
 export type Product = {
     id: number;
-    name:string;
+    name: string;
     price: number;
     description: string;
     imageUri: string;
-    
-    
+
+
 }

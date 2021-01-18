@@ -1,7 +1,7 @@
 
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Text, View, Image, Alert,Linking } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert, Linking } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { confirmDelivery } from '../api';
 import Header from '../Header';
@@ -24,17 +24,17 @@ function OrderDetails({ route }: Props) {
     }
     const handleConfirmDelivery = () => {
         confirmDelivery(order.id)
-        .then(()=> {
-            Alert.alert(`Pedido ${order.id} confirmado com sucesso.`)
-            navigation.navigate('Orders');
-        })
-        .catch(() => {
-            Alert.alert(`Houve um erro ao confirmar o pedido ${order.id}`);
-        })      
+            .then(() => {
+                Alert.alert(`Pedido ${order.id} confirmado com sucesso.`)
+                navigation.navigate('Orders');
+            })
+            .catch(() => {
+                Alert.alert(`Houve um erro ao confirmar o pedido ${order.id}`);
+            })
     }
 
-    const handleStartNavigation =() => {
-    Linking.openURL(`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${order.latitude},${order.longitude}`)
+    const handleStartNavigation = () => {
+        Linking.openURL(`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${order.latitude},${order.longitude}`)
     }
 
     return (
